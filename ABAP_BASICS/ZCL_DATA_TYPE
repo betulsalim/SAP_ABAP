@@ -1,0 +1,133 @@
+CLASS zcl_data_type DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC.
+
+  PUBLIC SECTION.
+    INTERFACES if_oo_adt_classrun.
+
+    METHODS:
+      first_abap IMPORTING !out TYPE REF TO if_oo_adt_classrun_out,
+      math_abap  IMPORTING !out TYPE REF TO if_oo_adt_classrun_out,
+      abap_if_else  IMPORTING !out TYPE REF TO if_oo_adt_classrun_out,
+      abap_case_when  IMPORTING !out TYPE REF TO if_oo_adt_classrun_out,
+      abap_do_dongu  IMPORTING !out TYPE REF TO if_oo_adt_classrun_out,
+      abap_while_dongu  IMPORTING !out TYPE REF TO if_oo_adt_classrun_out.
+
+    " Veri türü örnekleri
+    DATA: gv_dsg1  TYPE p DECIMALS 2,
+          gv_dsg2  TYPE int4,
+          gv_dsg3  TYPE n LENGTH 3,
+          gv_dsg4  TYPE c LENGTH 1,
+          gv_dsg5  TYPE string,
+          gv_desg1 TYPE i,
+          gv_desg2 TYPE i,
+          gv_sonuc TYPE i,
+          gv_desg3 TYPE n LENGTH 10,
+          gv_desg4 TYPE i,
+          gv_metin TYPE string.
+
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+
+ENDCLASS.
+
+CLASS zcl_data_type IMPLEMENTATION.
+
+  METHOD if_oo_adt_classrun~main.
+    " Programın giriş noktası
+    first_abap( out ).
+    math_abap( out ).
+    abap_if_else( out ).
+    abap_case_when( out ).
+    abap_do_dongu( out ).
+    abap_while_dongu( out ).
+  ENDMETHOD.
+
+  METHOD first_abap.
+    " Veri atamaları
+    gv_dsg1 = '12.54'.
+    gv_dsg2 = 1234.
+    gv_dsg3 = 654.
+    gv_dsg4 = 'A'.
+    gv_dsg5 = 'You can write what you want'.
+
+    " Konsola çıktı
+    out->write( |gv_dsg1: { gv_dsg1 } gv_dsg2: { gv_dsg2 } gv_dsg5: { gv_dsg5 }| ).
+  ENDMETHOD.
+
+  METHOD math_abap.
+    " Basit toplama işlemi
+    gv_metin = 'Toplam : '.
+    gv_desg1 = 10.
+    gv_desg2 = 10.
+    gv_sonuc = gv_desg1 + gv_desg2.
+    gv_desg3 = 5.
+    gv_desg4 = 30.
+
+
+    " Her değişkeni ayrı ayrı yazdıralım
+    out->write( '--- Math Method Başlangıç ---' ).
+    out->write( |gv_desg1: { gv_desg1 }| ).
+    out->write( |gv_desg2: { gv_desg2 }| ).
+    out->write( |{ gv_metin } { gv_sonuc }| ).
+    out->write( |gv_desg3: { gv_desg3 }| ).
+    out->write( |gv_desg4: { gv_desg4 }| ).
+    gv_sonuc = gv_desg4 - gv_desg3.
+    out->write( |Fark: { gv_sonuc }| ).
+
+    gv_sonuc = gv_desg1 * gv_desg4.
+    out->write( |Çarpım: { gv_sonuc }| ).
+    gv_sonuc = gv_desg4 / gv_desg3.
+    out->write( |Bölüm: { gv_sonuc }| ).
+    out->write( '--- Math Method Bitiş ---' ).
+  ENDMETHOD.
+
+  METHOD abap_if_else.
+    IF gv_desg3 > gv_desg1.
+      out->write( |Birinci sayı büyüktür.| ).
+    ELSEIF gv_desg3 < gv_desg1.
+      out->write( |İkinci sayı büyüktür.| ).
+    ELSE.
+      out->write( |İki sayı eşittir.| ).
+    ENDIF.
+  ENDMETHOD.
+
+  METHOD abap_case_when.
+    CASE gv_desg1.
+      WHEN 0.
+        out->write( |Değişken değerim 0| ).
+      WHEN 2.
+        out->write( |Değişken değerim 2| ).
+      WHEN 4.
+        out->write( |Değişken değerim 4| ).
+      WHEN 6.
+        out->write( |Değişken değerim 6| ).
+      WHEN 8.
+        out->write( |Değişken değerim 8| ).
+      WHEN 10.
+        out->write( |Değişken değerim 10| ).
+      WHEN 12.
+        out->write( |Değişken değerim 12| ).
+      WHEN OTHERS .
+        out->write( |Değişken değerim yok| ).
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD abap_do_dongu.
+    gv_desg1 = 1.
+    DO 10 TIMES.
+      out->write( |Do döngüsünü öğreniyoruz:  { gv_desg1 }| ).
+      gv_desg1 = gv_desg1 + 1.
+    ENDDO.
+  ENDMETHOD.
+
+  METHOD abap_while_dongu.
+    WHILE gv_desg1 LT 100.
+      gv_desg1 = gv_desg1 + 1.
+      out->write( |Desg_1: { gv_desg1 }|  ).
+    ENDWHILE.
+  ENDMETHOD.
+
+
+ENDCLASS.
